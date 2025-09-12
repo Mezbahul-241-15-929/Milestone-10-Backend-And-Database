@@ -9,8 +9,18 @@ app.get('/', (req, res) => {
   res.send('Hello World!')
 })
 
-app.get('/data', (req, res) => {
-  res.send('this is data')
+const users=[
+    {id:1, name:'Mezbahul',email:'abcd@gmail.com'},
+    {id:2, name:'Shahin',email:'efdf@gmail.com'},
+    {id:3, name:'Ridoy',email:'werrr@gmail.com'},
+]
+
+app.get('/users', (req, res) => {
+  res.send(users)
+})
+
+app.post('/users', (req, res) => {
+  console.log('users post method');
 })
 
 
