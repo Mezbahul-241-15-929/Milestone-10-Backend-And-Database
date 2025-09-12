@@ -1,9 +1,10 @@
-const express = require('express')
-const cors = require('cors')
-const app = express()
-const port = process.env.PORT || 3000
+const express = require('express');
+const cors = require('cors');
+const app = express();
+const port = process.env.PORT || 3000;
 
-app.use(cors())
+app.use(cors());
+app.use(express.json());
 
 app.get('/', (req, res) => {
   res.send('Hello World!')
@@ -16,11 +17,17 @@ const users=[
 ]
 
 app.get('/users', (req, res) => {
-  res.send(users)
+  res.send(users);
+  
+
 })
 
 app.post('/users', (req, res) => {
   console.log('users post method');
+  console.log(req.body);
+  const newUser= req.body;
+  newUser.id= users.length+1;
+  res.send(newUser);
 })
 
 

@@ -1,5 +1,4 @@
 import React, { use } from 'react';
-const userPromise= fetch('http://localhost:3000/users').then(res=>res.json());
 
 const Users = ({userPromise}) => {
 
@@ -10,6 +9,19 @@ const Users = ({userPromise}) => {
         const email=e.target.email.value;
         const user={name,email};
         console.log(user);
+
+        //create user in the server
+        fetch('http://localhost:3000/users',{
+            method: 'POST',
+            headers:{
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(user)
+        })
+        .then(res=>res.json())
+        .then(data=>{
+            console.log("Data after post",data)
+        })
         
     }
 
