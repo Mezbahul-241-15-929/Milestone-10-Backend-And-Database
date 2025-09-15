@@ -1,8 +1,8 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
 import Users from './Components/Users'
+
+const usersPromise = fetch('http://localhost:3000/users').then(res=>res.json());
 
 
 function App() {
@@ -11,7 +11,7 @@ function App() {
   return (
     <>
     <h1>Hello</h1>
-    <Users></Users>
+    <Users usersPromise={usersPromise}></Users>
     </>
   )
 }
