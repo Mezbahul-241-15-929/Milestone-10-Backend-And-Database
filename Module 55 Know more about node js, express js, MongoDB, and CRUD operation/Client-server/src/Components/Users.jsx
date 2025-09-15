@@ -19,6 +19,10 @@ const Users = () => {
             .then(res => res.json())
             .then(data => {
                 console.log("data after creating user in the db", data);
+                if(data.insertedId){
+                    alert('user added successfully');
+                    e.target.reset();
+                }
             })
     }
     return (
