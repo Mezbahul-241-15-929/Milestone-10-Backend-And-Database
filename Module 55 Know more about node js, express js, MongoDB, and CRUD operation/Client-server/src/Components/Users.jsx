@@ -45,6 +45,10 @@ const Users = ({ usersPromise }) => {
             .then(res=>res.json())
             .then(data=>{
                 console.log('after delete',data);
+                if(data.deletedCount){
+                    const remainingUsrs= users.filter(user=>user._id !==id);
+                    setUsers(remainingUsrs);
+                }
             })
         }
 
@@ -54,6 +58,7 @@ const Users = ({ usersPromise }) => {
         <div>
             {/* add user */}
             <div>
+                <h4>Users length:{users.length}</h4>
                 <form onSubmit={handleAddUsr}>
                     <input type="text" name='name' />
                     <br />
