@@ -49,8 +49,16 @@ async function run() {
                     const query = {_id: new ObjectId(id)}
                     const result = await usersCollection.deleteOne(query);
                     res.send(result);
+   
+        })
 
-                    
+        //http://localhost:3000/users/68c89269ecadfdfc14bcc1ea
+        // it generate the one pasific object with id
+        app.get('/users/:id', async(req, res) =>{
+                    const id = req.params.id;
+                    const query = {_id: new ObjectId(id)}
+                    const result = await usersCollection.findOne(query);
+                    res.send(result);
         })
 
         
