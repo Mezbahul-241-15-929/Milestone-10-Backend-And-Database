@@ -7,11 +7,14 @@ app.use(express.json());
 app.use(cors())
 
 
-require('dotenv').config();
+
 
 const { MongoClient, ServerApiVersion } = require('mongodb');
 
-const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.PASS}@cluster0.1jlx3rd.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
+//require('dotenv').config();
+//const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.1jlx3rd.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`
+const uri = "mongodb+srv://mezbahul:2A3NW9ZuLLtGXaGu@cluster0.1jlx3rd.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+
 
 const client = new MongoClient(uri, {
     serverApi: {
@@ -21,12 +24,27 @@ const client = new MongoClient(uri, {
     }
 });
 
+
 async function run() {
     try {
         // Connect the client to the server	(optional starting in v4.7)
-        //await client.connect();
+        await client.connect();
+
+        //connection or create a new db as name coffees
+        const coffeesCollection = client.db('coffeeDB').collection('coffees');
+
+        app.post('/coffess',async(req,res)=>{
+          const newCoffee= req.body;
+          console.log(newCoffee);
+
+          //add formdata into mongodb coffee server
+          const result = await coffeesCollection.insertOne(newCoffee);
+            res.send(result);
+        })
         // Send a ping to confirm a successful connection
         //await client.db("admin").command({ ping: 1 });
+
+
         console.log("Pinged your deployment. You successfully connected to MongoDB!");
     } finally {
         // Ensures that the client will close when you finish/error
