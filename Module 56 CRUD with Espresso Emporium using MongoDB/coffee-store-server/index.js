@@ -41,6 +41,15 @@ async function run() {
           const result = await coffeesCollection.insertOne(newCoffee);
             res.send(result);
         })
+
+        // create localhost:3000/coffees 
+                app.get('/coffees', async (req, res) => {
+            // const cursor = coffeesCollection.find();
+            // const result = await cursor.toArray();
+            const result = await coffeesCollection.find().toArray();
+            res.send(result);
+        });
+        
         // Send a ping to confirm a successful connection
         //await client.db("admin").command({ ping: 1 });
 
