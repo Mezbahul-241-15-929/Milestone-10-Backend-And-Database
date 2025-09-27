@@ -24,11 +24,21 @@ const CoffeeCard = ({ coffee }) => {
         }).then((result) => {
             console.log(result.isConfirmed);
             if (result.isConfirmed) {
-                // Swal.fire({
-                //     title: "Deleted!",
-                //     text: "Your file has been deleted.",
-                //     icon: "success"
-                // });
+
+                fetch(`http://localhost:3000/coffees/${_id}`, {
+                    method: 'DELETE'
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.deletedCount) {
+                            Swal.fire({
+                                title: "Deleted!",
+                                text: "Your Coffee has been deleted.",
+                                icon: "success"
+                            });
+
+                        }
+                    })
             }
         });
     }
@@ -48,10 +58,14 @@ const CoffeeCard = ({ coffee }) => {
                 </div>
                 <div className="card-actions justify-end">
                     <div className="join join-vertical space-y-2">
-                        <button className='btn bg-[#b18750] p-1 rounded text-white
+                        <Link to={`/coffee/${_id}`}>
+                            <button className='btn bg-[#b18750] p-1 rounded text-white
                         '>< GrFormView size={25} /></button>
-                        <button className='btn bg-[#000000] p-1 rounded text-white
-                        '>< CiEdit size={25} /></button>
+                        </Link>
+
+                        <Link to={`/updateCoffee/${_id}`}><button className='btn bg-[#000000] p-1 rounded text-white
+                        '>< CiEdit size={25} /></button></Link>
+                        
                         <button onClick={() => handleDelete(_id)} className='btn bg-red-600 p-1 rounded text-white
                         '>< MdDeleteForever size={25} /></button>
 

@@ -9,7 +9,7 @@ app.use(cors())
 
 
 
-const { MongoClient, ServerApiVersion } = require('mongodb');
+const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 
 //require('dotenv').config();
 //const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.1jlx3rd.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`
@@ -42,6 +42,15 @@ async function run() {
             res.send(result);
         })
 
+        //delete coffee or delete one document
+        app.delete('/coffees/:id',async(req,res)=>{
+          const id = req.params.id;
+            const query = { _id: new ObjectId(id) }
+            const result = await coffeesCollection.deleteOne(query);
+            res.send(result);
+
+        })
+
         // create localhost:3000/coffees 
                 app.get('/coffees', async (req, res) => {
             // const cursor = coffeesCollection.find();
@@ -49,6 +58,14 @@ async function run() {
             const result = await coffeesCollection.find().toArray();
             res.send(result);
         });
+
+        //create dynamic coffee details data
+        app.get('/coffees/:id', async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: new ObjectId(id) }
+            const result = await coffeesCollection.findOne(query);
+            res.send(result);
+        })
         
         // Send a ping to confirm a successful connection
         //await client.db("admin").command({ ping: 1 });
