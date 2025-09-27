@@ -20,9 +20,10 @@ const router = createBrowserRouter([
     path: "/",
     Component: Root,
     children: [
-      { index: true,
-        loader: ()=> fetch('http://localhost:3000/coffees'),
-         Component: Home 
+      {
+        index: true,
+        loader: () => fetch('http://localhost:3000/coffees'),
+        Component: Home
       },
       {
         path: '/coffee/:id',
@@ -31,6 +32,7 @@ const router = createBrowserRouter([
       },
       {
         path: '/updateCoffee/:id',
+        loader: ({ params }) => fetch(`http://localhost:3000/coffees/${params.id}`),
         Component: UpdateCoffee
       },
       //{ path: "/login", Component: Login },
