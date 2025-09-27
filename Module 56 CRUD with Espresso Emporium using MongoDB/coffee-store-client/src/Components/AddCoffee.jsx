@@ -3,7 +3,7 @@ import Swal from 'sweetalert2';
 
 const AddCoffee = () => {
 
-        const handleAddCoffee = e => {
+    const handleAddCoffee = e => {
         e.preventDefault();
         const form = e.target;
 
@@ -22,14 +22,15 @@ const AddCoffee = () => {
             .then(res => res.json())
             .then(data => {
                 //console.log("after adding coffee db",data);
-                                if(data.insertedId){
+                if (data.insertedId) {
                     console.log('added successfully.')
 
                     Swal.fire({
                         title: "Coffee added successfully!",
                         icon: "success",
-                        draggable: true
-                      });
+                        draggable: true,
+                        timer: 1500
+                    });
 
                     //   form.reset()
                 }
@@ -39,7 +40,7 @@ const AddCoffee = () => {
 
 
     return (
-                <div className='p-24'>
+        <div className='p-24'>
             <div className='p-12 text-center space-y-4'>
                 <h1 className="text-6xl">Add Coffee</h1>
                 <p>It is a long established fact that a reader will be distraceted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using Content here.</p>
