@@ -89,6 +89,16 @@ async function run() {
 
     })
 
+    const usersCollection = client.db('coffeeDB').collection('users');
+
+    // User related APIs
+        app.post('/users', async (req, res) => {
+            const userProfile = req.body;
+            console.log(userProfile)
+            const result = await usersCollection.insertOne(userProfile);
+            res.send(result);
+        })
+
     // Send a ping to confirm a successful connection
     //await client.db("admin").command({ ping: 1 });
 

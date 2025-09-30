@@ -1,48 +1,82 @@
 import React, { use } from 'react';
 import { AuthContext } from '../../contexts/AuthContext';
+import Swal from 'sweetalert2';
 
 const Register = () => {
 
-    const handleSignUp =(e)=>{
+    const handleSignUp = (e) => {
         e.preventDefault();
         const form = e.target;
         const formData = new FormData(form);
 
-        const email=formData.get('email');
-        const password=formData.get('password');
+        //method 1 for email & passwor
+        // const email = formData.get('email');
+        // const password = formData.get('password');
 
-        console.log(email,password);
+        //mehtod 2 for get email,password & all input data using fromEmtries
+        const { email, password, ...userProfile } = Object.fromEntries(formData.entries());
+
+        console.log(email, password,userProfile);
+
 
         //create user in the firebase
-        createUser(email,password)
-        .then(result=>{
-            console.log(result.user)
-        })
-        .then(error=>{
-            console.log(error)
-        })
+        createUser(email, password)
+            .then(result => {
+                console.log(result.user)
+                // save profile info in the db
+                fetch('http://localhost:3000/users', {
+                    method: 'POST',
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    body: JSON.stringify(userProfile)
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.insertedId) {
+                            Swal.fire({
+                                position: "top-end",
+                                icon: "success",
+                                title: "Your account is created.",
+                                showConfirmButton: false,
+                                timer: 1500
+                            });
+                        }
+                    })
+            })
+            .then(error => {
+                console.log(error)
+            })
 
     }
 
-    const {createUser}=use(AuthContext);
+    const { createUser } = use(AuthContext);
     console.log(createUser);
 
-    
+
     return (
-        <div className="card bg-base-100 mx-auto max-w-sm shrink-0 shadow-2xl mt-10">
+        <div className="card bg-base-100 max-w-sm mx-auto shrink-0 shadow-2xl">
             <div className="card-body">
-                <h1 className="text-4xl font-bold">Signup now!</h1>
+                <h1 className="text-5xl font-bold">Sign Up now!</h1>
                 <form onSubmit={handleSignUp} className="fieldset">
+                    <label className="label">Name</label>
+                    <input type="text" name="name" className="input" placeholder="Name" />
+                    <label className="label">Address</label>
+                    <input type="text" name="address" className="input" placeholder="Address" />
+                    <label className="label">Phone</label>
+                    <input type="text" name="phone" className="input" placeholder="Phone NUmber" />
+                    <label className="label">photo</label>
+                    <input type="text" name="photo" className="input" placeholder="Photo URL" />
                     <label className="label">Email</label>
-                    <input name='email' type="email" className="input" placeholder="Email" />
+                    <input type="email" name="email" className="input" placeholder="Email" />
                     <label className="label">Password</label>
-                    <input name='password' type="password" className="input" placeholder="Password" />
+                    <input type="password" name='password' className="input" placeholder="Password" />
                     <div><a className="link link-hover">Forgot password?</a></div>
-                    <button className="btn btn-neutral mt-4">Signup</button>
+                    <button className="btn btn-neutral mt-4">Sign up</button>
                 </form>
-            </div> 
             </div>
-            );
+        </div>
+    );
 };
 
-            export default Register;
+export default Register;
