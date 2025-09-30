@@ -39,7 +39,7 @@ const router = createBrowserRouter([
       },
 
       {
-        path: 'users',
+        path: '/users',
         loader: () => fetch('http://localhost:3000/users'),
         Component: Users
       },
