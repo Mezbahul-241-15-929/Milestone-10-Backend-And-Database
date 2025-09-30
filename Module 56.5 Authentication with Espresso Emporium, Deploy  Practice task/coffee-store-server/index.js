@@ -113,6 +113,20 @@ async function run() {
             res.send(result);
         })
 
+        //change passific data like lastSignInTime
+        app.patch('/users', async(req, res) =>{
+            const {email, lastSignInTime} = req.body;
+            const filter = {email: email}
+            const updatedDoc = {
+                $set: {
+                    lastSignInTime: lastSignInTime
+                }
+            }
+
+            const result = await usersCollection.updateOne(filter, updatedDoc)
+            res.send(result);
+        })
+
     // Send a ping to confirm a successful connection
     //await client.db("admin").command({ ping: 1 });
 

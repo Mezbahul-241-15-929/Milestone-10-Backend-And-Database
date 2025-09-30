@@ -44,7 +44,7 @@ const Users = () => {
     }
 
     return (
-        <div>
+        <div className='mt-10'> 
             <h2 className="text-3xl">Users: {users.length}</h2>
 
             <div className="overflow-x-auto">
