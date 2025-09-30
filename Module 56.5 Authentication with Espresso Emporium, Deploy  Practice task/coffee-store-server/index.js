@@ -92,10 +92,17 @@ async function run() {
     const usersCollection = client.db('coffeeDB').collection('users');
 
     // User related APIs
+
+    //send users singup data to the mongodb server
         app.post('/users', async (req, res) => {
             const userProfile = req.body;
             console.log(userProfile)
             const result = await usersCollection.insertOne(userProfile);
+            res.send(result);
+        })
+        //get user singup data from mongodb server 
+        app.get('/users', async (req, res) => {
+            const result = await usersCollection.find().toArray();
             res.send(result);
         })
 
