@@ -13,6 +13,7 @@ import AboutMe from "../pages/Aboutme";
 import Add_Plant from "../components/Navbar_Component/Add_Plant";
 import AllPlants from "../components/Navbar_Component/AllPlants";
 import CoffeeDetails from "../components/Navbar_Component/CoffeeDetails";
+import MyPlants from "../components/Navbar_Component/MyPlants";
 
 const router = createBrowserRouter([
   {
@@ -64,11 +65,18 @@ const router = createBrowserRouter([
     loader: () => fetch('http://localhost:3000/plants'),
     Component: AllPlants,
   },
+
   {
-        path: '/plant/:id',
-        loader: ({ params }) => fetch(`http://localhost:3000/plants/${params.id}`),
-        Component: CoffeeDetails
-      },
+    path: '/plant/:id',
+    loader: ({ params }) => fetch(`http://localhost:3000/plants/${params.id}`),
+    Component: CoffeeDetails
+  },
+
+  {
+    path: "/myplants",
+    loader: () => fetch("http://localhost:3000/plants"),
+    Component: MyPlants
+  },
 
   // {
   //   path: "/news-details/:id",

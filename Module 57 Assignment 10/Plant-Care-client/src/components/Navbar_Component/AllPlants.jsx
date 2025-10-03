@@ -15,11 +15,11 @@ const AllPlants = () => {
             </nav>
 
             {/* Main Form */}
-            <main className="w-11/12 mx-auto">
-                <div className='mt-10'>
-                    <h2 className="text-3xl">Plants: {plants.length}</h2>
+            <main className="w-11/12 mx-auto border-1 rounded-xl border-green-500 shadow px-5">
+                <div className='mt-5'>
+                    <h2 className="text-2xl font-bold text-center">Total Plants : {plants.length}</h2>
 
-                    <div className="overflow-x-auto">
+                    <div className="overflow-x-auto ">
                         <table className="table">
                             {/* head */}
                             <thead>
@@ -73,7 +73,7 @@ const AllPlants = () => {
             </main>
 
             {/* Footer */}
-            <footer className="w-11/12 mx-auto">
+            <footer className="w-11/12 mx-auto mt-25">
                 <Footer />
             </footer>
         </div>

@@ -32,7 +32,7 @@ const PlantDetailsPage = () => {
             {/* Main Plant Details */}
             <main className="w-11/12 mx-auto">
                 <div className="flex justify-center">
-                    <div className="w-full bg-white shadow-lg rounded-2xl overflow-hidden md:flex border border-green-600">
+                    <div className="w-full bg-white shadow-lg rounded-2xl overflow-hidden md:flex border-1 border-green-500">
                         {/* Plant Image */}
                         <div className="md:w-1/2 w-full flex justify-center items-center bg-gray-100">
                             <img
@@ -83,7 +83,7 @@ const PlantDetailsPage = () => {
             </main>
 
             {/* Footer */}
-            <footer className="w-11/12 mx-auto mt-5">
+            <footer className="w-11/12 mx-auto mt-10">
                 <Footer />
             </footer>
         </div>

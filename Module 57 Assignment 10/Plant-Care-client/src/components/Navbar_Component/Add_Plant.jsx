@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import Navbar from "../Navbar";
 import Footer from "../Footer";
 import { AuthContext } from "../../provider/AuthProvider";
+import { Link } from "react-router";
 //import Swal from "sweetalert2";
 
 const Add_Plant = () => {
@@ -78,11 +79,25 @@ const Add_Plant = () => {
             </nav>
 
             {/* Main Form */}
+            {!user ? (
+          // User not logged in
+          <div className="text-center mt-20">
+            <h2 className="text-2xl font-bold mb-4">You are not logged in!</h2>
+            <p className="mb-6 text-gray-600">
+              Please log in to view your plants.
+            </p>
+            <Link to="/auth/login">
+              <button className="bg-green-600 text-white py-2 px-6 rounded-lg hover:bg-green-700 transition">
+                Go to Login
+              </button>
+            </Link>
+          </div>
+        ) :(
             <main className="w-11/12 mx-auto">
                 <div className="flex justify-center items-center min-h-screen bg-gray-100 p-6">
                     <form
                         onSubmit={handleSubmit}
-                        className="bg-white p-6 rounded-2xl shadow-lg w-full max-w-lg"
+                        className="bg-white p-6 rounded-2xl shadow-lg w-full max-w-lg border-1 border-green-500"
                     >
                         <h2 className="text-2xl font-bold mb-4 text-center">Add New Plant</h2>
 
@@ -246,10 +261,10 @@ const Add_Plant = () => {
                         </button>
                     </form>
                 </div>
-            </main>
+            </main>)}
 
             {/* Footer */}
-            <footer className="w-11/12 mx-auto">
+            <footer className="w-11/12 mx-auto mt-20">
                 <Footer />
             </footer>
         </div>

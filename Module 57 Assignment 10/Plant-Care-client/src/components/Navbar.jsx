@@ -20,7 +20,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-white shadow rounded-xl px-4 py-3 border-1 border-green-600">
+    <nav className="bg-white shadow rounded-xl px-4 py-3 border-1 border-green-500">
       <div className="flex justify-between items-center">
         {/* Logo */}
         
@@ -31,7 +31,7 @@ const Navbar = () => {
           <NavLink to="/" className="hover:text-primary">Home</NavLink>
           <NavLink to="/allplants" className="hover:text-primary">All Plants</NavLink>
           <NavLink to="/addplant" className="hover:text-primary">Add Plant</NavLink>
-          <NavLink to="/" className="hover:text-primary">My Plants</NavLink>
+          <NavLink to="/myplants" className="hover:text-primary">My Plants</NavLink>
         </div>
 
         {/* User Info + Auth (Desktop) */}
@@ -68,7 +68,7 @@ const Navbar = () => {
           <NavLink to="/" className="hover:text-primary">Home</NavLink>
           <NavLink to="/allplants" className="hover:text-primary">All Plants</NavLink>
           <NavLink to="/addplant" className="hover:text-primary">Add Plant</NavLink>
-          <NavLink to="/" className="hover:text-primary">My Plants</NavLink>
+          <NavLink to="/myplants" className="hover:text-primary">My Plants</NavLink>
 
 
           <div className="flex flex-col gap-3 mt-3">
