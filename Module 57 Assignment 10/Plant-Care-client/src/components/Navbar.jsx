@@ -20,11 +20,11 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-white shadow rounded-xl px-4 py-3 border-1 border-green-500">
+    <nav className="bg-white shadow rounded-xl px-4 py-3 border-y-2 border-green-500">
       <div className="flex justify-between items-center">
         {/* Logo */}
         
-        <NavLink to="/" ><h1 className="text-2xl font-bold text-indigo-600">BoxNest</h1></NavLink>
+        <NavLink to="/" ><h1 className="text-2xl font-bold text-green-600">Plant Care</h1></NavLink>
 
         {/* Desktop Nav */}
         <div className="hidden md:flex gap-5 text-accent">
@@ -43,11 +43,11 @@ const Navbar = () => {
             alt="user"
           />
           {user ? (
-            <button onClick={handleLogOut} className="btn btn-primary  px-6 bg-indigo-600 border-none">
+            <button onClick={handleLogOut} className="btn btn-primary  px-6 bg-green-600 text-white border-none">
               LogOut
             </button>
           ) : (
-            <Link to="/auth/login" className="btn btn-primary round px-6 bg-indigo-600 border-none">
+            <Link to="/auth/login" className="btn btn-primary round px-6 bg-green-600 text-white border-none">
               Login
             </Link>
           )}

@@ -6,7 +6,7 @@ function App() {
 
   return (
     <>
-      <h1 className="text-6xl">BoxNest</h1>
+      <h1 className="text-6xl">Plant Care</h1>
     </>
   );
 }

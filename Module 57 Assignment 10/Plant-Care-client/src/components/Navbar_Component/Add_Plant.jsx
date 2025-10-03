@@ -94,7 +94,7 @@ const Add_Plant = () => {
           </div>
         ) :(
             <main className="w-11/12 mx-auto">
-                <div className="flex justify-center items-center min-h-screen bg-gray-100 p-6">
+                <div className="flex justify-center items-center min-h-screen  p-6">
                     <form
                         onSubmit={handleSubmit}
                         className="bg-white p-6 rounded-2xl shadow-lg w-full max-w-lg border-1 border-green-500"
