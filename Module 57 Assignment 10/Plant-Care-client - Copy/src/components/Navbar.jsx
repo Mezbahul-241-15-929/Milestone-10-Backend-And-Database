@@ -20,7 +20,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-white shadow rounded-xl px-4 py-3 border-1 border-green-600">
+    <nav className="bg-white shadow rounded-xl px-4 py-3 border-1 border-[#4f39f6]">
       <div className="flex justify-between items-center">
         {/* Logo */}
         
@@ -65,10 +65,8 @@ const Navbar = () => {
       {/* Mobile Menu */}
       {isOpen && (
         <div className="flex flex-col mt-4 gap-4 md:hidden text-accent">
-          <NavLink to="/" className="hover:text-primary">Home</NavLink>
-          <NavLink to="/allplants" className="hover:text-primary">All Plants</NavLink>
-          <NavLink to="/addplant" className="hover:text-primary">Add Plant</NavLink>
-          <NavLink to="/" className="hover:text-primary">My Plants</NavLink>
+          <NavLink to="/" onClick={() => setIsOpen(false)}>Home</NavLink>
+          <NavLink to="/about" onClick={() => setIsOpen(false)}>About</NavLink>
 
 
           <div className="flex flex-col gap-3 mt-3">

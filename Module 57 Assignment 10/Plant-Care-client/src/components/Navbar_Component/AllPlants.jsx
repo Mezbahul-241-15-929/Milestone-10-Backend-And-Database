@@ -1,78 +1,82 @@
 import React, { useState } from 'react';
 import Navbar from '../Navbar';
 import Footer from '../Footer';
-import { useLoaderData } from 'react-router';
+import { Link, useLoaderData } from 'react-router';
+import { GrFormView } from "react-icons/gr";
 
 const AllPlants = () => {
     const initialPlants = useLoaderData();
     const [plants, setPlants] = useState(initialPlants);
     return (
         <div>
-      {/* Navbar */}
-      <nav className="w-11/12 mx-auto my-5">
-        <Navbar />
-      </nav>
+            {/* Navbar */}
+            <nav className="w-11/12 mx-auto my-5">
+                <Navbar />
+            </nav>
 
-      {/* Main Form */}
-      <main className="w-11/12 mx-auto">
-                <div className='mt-10'> 
-            <h2 className="text-3xl">Plants: {plants.length}</h2>
+            {/* Main Form */}
+            <main className="w-11/12 mx-auto">
+                <div className='mt-10'>
+                    <h2 className="text-3xl">Plants: {plants.length}</h2>
 
-            <div className="overflow-x-auto">
-                <table className="table">
-                    {/* head */}
-                    <thead>
-                        <tr>
-                            <th>No</th>
-                            <th>Plant Info</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {
-                            plants.map((plant, index) => (
-                                <tr key={plant._id}>
-                                    <th>{index + 1}</th>
-                                    <td>
-                                        <div className="flex items-center gap-3">
-                                            <div className="avatar">
-                                                <div className="mask mask-squircle h-12 w-12">
-                                                    <img
-                                                        src={plant.photo}
-                                                        alt="Plant" />
-                                                </div>
-                                            </div>
-                                            <div>
-                                                <div className="font-bold">{plant.plantName}</div>
-                                                <div className="text-sm opacity-50">
-                                                    Category: {plant.category}
-                                                </div>
-                                                <div className="text-sm opacity-70">
-                                                    Health: {plant.healthStatus}
-                                                </div>
-                                                <div className="text-sm opacity-70">
-                                                    Last watered: {plant.lastWateredDate}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <button className="btn btn-xs">V</button>
-                                    </td>
+                    <div className="overflow-x-auto">
+                        <table className="table">
+                            {/* head */}
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Plant Info</th>
+                                    <th>Action</th>
                                 </tr>
-                            ))
-                        }
-                    </tbody>
-                </table>
-            </div>
-        </div>
-      </main>
+                            </thead>
+                            <tbody>
+                                {
+                                    plants.map((plant, index) => (
+                                        <tr key={plant._id}>
+                                            <th>{index + 1}</th>
+                                            <td>
+                                                <div className="flex items-center gap-3">
+                                                    <div className="avatar">
+                                                        <div className="mask mask-squircle h-12 w-12">
+                                                            <img
+                                                                src={plant.photo}
+                                                                alt="Plant" />
+                                                        </div>
+                                                    </div>
+                                                    <div>
+                                                        <div className="font-bold">{plant.plantName}</div>
+                                                        <div className="text-sm opacity-50">
+                                                            Category: {plant.category}
+                                                        </div>
+                                                        <div className="text-sm opacity-70">
+                                                            Health: {plant.healthStatus}
+                                                        </div>
+                                                        <div className="text-sm opacity-70">
+                                                            Last watered: {plant.lastWateredDate}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <Link to={`/plant/${plant._id}`}>
+                                                    <button className='btn bg-green-600 p-1 rounded text-white
+                        '>< GrFormView size={25} /></button>
+                                                </Link>
+                                            </td>
+                                        </tr>
+                                    ))
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </main>
 
-      {/* Footer */}
-      <footer className="w-11/12 mx-auto">
-        <Footer />
-      </footer>
-    </div>
+            {/* Footer */}
+            <footer className="w-11/12 mx-auto">
+                <Footer />
+            </footer>
+        </div>
     );
 };
 

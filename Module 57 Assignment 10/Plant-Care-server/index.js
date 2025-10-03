@@ -49,6 +49,15 @@ async function run() {
       res.send(result);
     });
 
+    app.get('/plants/:id', async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) }
+      const result = await plantCollection.findOne(query);
+      res.send(result);
+    });
+
+    // **********************************************************************************
+
 
     //connection or create a new db as name coffees
     const coffeesCollection = client.db('coffeeDB').collection('coffees');
