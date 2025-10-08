@@ -6,6 +6,7 @@ import { AuthContext } from "../../provider/AuthProvider";
 import { GrFormView } from "react-icons/gr";
 import { CiEdit } from "react-icons/ci";
 import { MdDeleteForever } from "react-icons/md";
+import Swal from "sweetalert2"; 
 
 const MyPlants = () => {
   const initialPlants = useLoaderData();
@@ -23,27 +24,51 @@ const MyPlants = () => {
     }
   }, [initialPlants, user]);
 
-  // handle delete
+  //  handle delete with SweetAlert2
   const handleDelete = (_id) => {
-    const confirmDelete = window.confirm(
-      "Are you sure you want to delete this plant?"
-    );
-    if (!confirmDelete) return;
-
-    fetch(`http://localhost:3000/plants/${_id}`, {
-      method: "DELETE",
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.deletedCount) {
-          alert("Plant deleted successfully!");
-          const remainingPlants = plants.filter((p) => p._id !== _id);
-          setPlants(remainingPlants);
-        } else {
-          alert("Failed to delete the plant.");
-        }
-      })
-      .catch(() => alert("Something went wrong while deleting!"));
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        fetch(`https://plant-care-server-xi.vercel.app/plants/${_id}`, {
+          method: "DELETE",
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.deletedCount) {
+              //  Success Alert
+              Swal.fire({
+                title: "Deleted!",
+                text: "Your plant has been deleted.",
+                icon: "success",
+                timer: 1500,
+                showConfirmButton: false,
+              });
+              const remainingPlants = plants.filter((p) => p._id !== _id);
+              setPlants(remainingPlants);
+            } else {
+              Swal.fire({
+                title: "Failed!",
+                text: "Could not delete the plant.",
+                icon: "error",
+              });
+            }
+          })
+          .catch(() =>
+            Swal.fire({
+              title: "Error!",
+              text: "Something went wrong while deleting.",
+              icon: "error",
+            })
+          );
+      }
+    });
   };
 
   return (
@@ -56,7 +81,7 @@ const MyPlants = () => {
       <main className="w-11/12 mx-auto">
         {!user ? (
           // User not logged in
-          <div className="text-center mt-10">
+          <div className="text-center mt-20">
             <h2 className="text-2xl font-bold mb-4">You are not logged in!</h2>
             <p className="mb-6 text-gray-600">
               Please log in to view your plants.
@@ -90,9 +115,9 @@ const MyPlants = () => {
                   </thead>
                   <tbody>
                     {plants.map((plant, index) => (
-                      <tr key={plant._id}>
-                        <th>{index + 1}</th>
-                        <td>
+                      <tr key={plant._id} className="">
+                        <th className="">{index + 1}</th>
+                        <td className="">
                           <div className="flex items-center gap-3">
                             <div className="avatar">
                               <div className="mask mask-squircle h-12 w-12">
@@ -113,25 +138,29 @@ const MyPlants = () => {
                             </div>
                           </div>
                         </td>
-                        <td className="flex gap-2">
-                          <Link to={`/plant/${plant._id}`}>
-                            <button className="btn bg-green-600 p-1 rounded text-white">
-                              <GrFormView size={25} />
+                        <td className="grid gap-2">
+                          <div>
+                            <Link to={`/plant/${plant._id}`}>
+                              <button className="btn bg-green-600 p-1 rounded text-white">
+                                <GrFormView size={25} />
+                              </button>
+                            </Link>
+                          </div>
+                          <div>
+                            <Link to={`/updateplant/${plant._id}`}>
+                              <button className="btn bg-black p-1 rounded text-white">
+                                <CiEdit size={25} />
+                              </button>
+                            </Link>
+                          </div>
+                          <div>
+                            <button
+                              onClick={() => handleDelete(plant._id)}
+                              className="btn bg-red-600 p-1 rounded text-white"
+                            >
+                              <MdDeleteForever size={25} />
                             </button>
-                          </Link>
-
-                          <Link to={`/updateplant/${plant._id}`}>
-                            <button className="btn bg-black p-1 rounded text-white">
-                              <CiEdit size={25} />
-                            </button>
-                          </Link>
-
-                          <button
-                            onClick={() => handleDelete(plant._id)}
-                            className="btn bg-red-600 p-1 rounded text-white"
-                          >
-                            <MdDeleteForever size={25} />
-                          </button>
+                          </div>
                         </td>
                       </tr>
                     ))}
